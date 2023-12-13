@@ -1,0 +1,21 @@
+ % Pedir al usuario que ingrese un número
+num = input('Ingrese un número entero y positivo: ');
+% prueba de intento (idealmente debe entrar en try)
+try
+    % Calcular el factorial usando la función calcularFactorial
+    if num < 0
+        error('El factorial no está definido para números negativos.');
+    elseif num == 0 || num == 1
+        factorial = 1;
+    else
+        factorial = 1;
+        for i = 2:num
+            factorial = factorial * i;
+        end
+    end
+    % Mostrar el resultado
+    fprintf('El factorial de %d es %d\n', num, factorial);
+catch e
+    % esta opción ocurre cuando se obtuvo un error matemático en los cálculos
+    fprintf('Error: %s\n', e.message);
+end

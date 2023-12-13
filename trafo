@@ -1,0 +1,35 @@
+%se debe generar una señal senoidal con especificaciones dadas:
+%se coloca la frec. de muestreo
+fs = 1000; 
+%vector de tiempo
+t = 0:1/fs:1; 
+%frecuencia de la señal
+f=100;
+%especificar el tipo de onda (senoidal o cosenoidal)
+x= sin(2*pi*f*t);
+
+%comando para aplicar la trafo de fourier en la onda x
+xf=fft(x);
+
+%filtro pasa baja
+n = length(x);
+fc = 50 ; %frec de corte
+h= ones(n, 1); %vector de ceros
+h(round(n*fc/fs)+1:end) =0; %aplicando filtro
+
+xf_filtered =xf .*h; %aplicar filtro a la señal en el dominio de la frec
+
+x_filtered = ifft(xf_filtered);
+
+%gráfica de señales
+figure;
+subplot(2,1,1);
+plot(t,x);
+title('señal principal');
+xlabel('tiempo en segundos');
+ylabel('amplitud');
+subplot(2,1,2);
+plot(t, real(x_filtered));
+title('Señal filtrada');
+xlabel('tiempo en segundos');
+ylabel('Amplitud');
