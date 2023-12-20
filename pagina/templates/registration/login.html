@@ -1,0 +1,23 @@
+{% extends 'generales/base.html'%}
+
+{% block content %}
+
+<h3>loginxd</h3>
+
+<br>
+
+<form action="" method="post">
+    {% csrf_token %}
+
+    <input type="text" name="username" id="" placeholder="Nombre de Usuario">
+    <br>
+    <input type="password" name="password" id="" placeholder="Contraseña">
+    <br>
+    <button type="submit">Iniciar sesión</button>
+
+
+
+
+</form>
+
+{% endblock %}
