@@ -3,10 +3,11 @@
 {% block content %}
 
 <h3>inicio</h3>
+
 {% if request.user.is_authenticated %}
     <hr>
     <h2>
-        {{ user.username | upper}}, bienvenid@
+        ¡Bienvenid@ de vuelta, {{ user.username | upper}}!
 </h2>
 {% endif %}
 
