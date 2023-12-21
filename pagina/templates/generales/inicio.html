@@ -1,15 +1,19 @@
 {% extends 'generales/base.html'%}
 
 {% block content %}
-
-<h3>inicio</h3>
-
 {% if request.user.is_authenticated %}
-    <hr>
+
     <h2>
         ¡Bienvenid@ de vuelta, {{ user.username | upper}}!
 </h2>
+<hr>
 {% endif %}
+
+<div class="tittle text-center py5">
+    <h3><b>Academia USAC</b></h3>
+</div>
+        <img src="media/princ.jpeg" class="d-block w-100" alt="...">
+        <h2>El aprendizaje es un viaje infinito hacia el descubrimiento, donde cada paso que das te acerca más a la mejor versión de ti mismo. ¡Empieza hoy a explorar, a aprender y a convertirte en quien siempre has deseado ser</h2>
 
 
 

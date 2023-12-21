@@ -50,3 +50,5 @@ def register(request):
         
     return render(request, 'registration/register.html', data)
 
+def info(request):
+    return render(request, 'generales/info.html')

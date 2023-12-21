@@ -1,0 +1,30 @@
+{% extends 'generales/base.html'%}
+
+{% block content %}
+
+<h2>Información del usuario</h2>
+<hr>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card" style="width: 22rem;">
+            <div class="card-body">
+              <h5 class="card-title">Username: {{ user.username | upper}}</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Nombre: {{ user.first_name}}</li>
+                <li class="list-group-item">Apellido: {{ user.last_name}}</li>
+              <li class="list-group-item">Email: {{ user.email}}</li>
+              <li class="list-group-item">Teléfono: {{ user.NumCel}}</li>
+              <li class="list-group-item">DPI: {{ user.DPI}}</li>
+
+            </ul>
+          </div>
+
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}
