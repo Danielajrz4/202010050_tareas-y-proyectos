@@ -1,109 +1,29 @@
+
 {% extends 'generales/base.html'%}
 
 {% block content %}
 <div class="tittle text-center py5">
 <h3><b>CURSOS DISPONIBLES</b></h3>
 </div>
+
 <div class="row mx-5">
+    {% for product in products %}
     <div class="card" style="width: 20rem;">
-        <img src="media/progra1.jpg" class="card-img-top" alt="...">
+        <img src="{{ product.imagenURL }}" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-title">Programación 1</h5>
-          <p class="card-text">Introducción al mundo de las computadoras y principios de c/c++, este curso no incluye diploma.</p>
+          <h5 class="card-title"> {{ product.curso }} </h5>
+          <p class="card-text">{{ product.descripcion }}</p>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">Horario: 18:00 - 19:00</li>
-          <li class="list-group-item">Cupo: 10 personas</li>
-          <li class="list-group-item">Imparte: ING Eugenia</li>
+          <li class="list-group-item">Precio: Q{{ product.precio }}</li>
+          <li class="list-group-item"> Cupo: {{ product.cupo }} personas</li>
         </ul>
         <div class="card-body">
-          <a href="#" class="card-link">Añadir al carrito</a>
+          <a href="#" class="btn btn-info btn-sm">Añadir al carrito</a>
         </div>
     </div>
-
-
-    <div class="card" style="width: 20rem;">
-        <img src="media/progra2.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Programación 2</h5>
-          <p class="card-text">Curso avanzado sobre el uso de pyhon y el framework django.</p>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">Horario: 10:00 - 11:00</li>
-          <li class="list-group-item">Cupo: 10 personas</li>
-          <li class="list-group-item">Imparte: ING España</li>
-        </ul>
-        <div class="card-body">
-          <a href="#" class="card-link">Añadir al carrito</a>
-
-        </div>
-    </div>
-    <div class="card" style="width: 20rem;">
-        <img src="media/progra3.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Programación 3</h5>
-          <p class="card-text">Curso avanzado sobre la manipulación de bases de datos en mysql y postgresql.</p>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">Horario: 7:00 - 8:00</li>
-          <li class="list-group-item">Cupo: 10 personas</li>
-          <li class="list-group-item">Imparte: ING Elder</li>
-        </ul>
-        <div class="card-body">
-          <a href="#" class="card-link">Añadir al carrito</a>
-        </div>
-      </div>
-
-</div>
-<div class="row mx-5">
-    <div class="card" style="width: 20rem;">
-        <img src="media/electro1.jpeg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Electrónica 1</h5>
-          <p class="card-text">Curso básico de electrónica, principios del transistor y uniones bipolares.</p>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">Horario: 17:00 - 18:00</li>
-          <li class="list-group-item">Cupo: 10 personas</li>
-          <li class="list-group-item">Imparte: ING Alan</li>
-        </ul>
-        <div class="card-body">
-          <a href="#" class="card-link">Añadir al carrito</a>
-
-        </div>
-      </div>
-    <div class="card" style="width: 20rem;">
-        <img src="media/electro2.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Electrónica 2</h5>
-          <p class="card-text">Curso avanzado sobre reparacion y analisis de placas de todo tipo de electrónicos.</p>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">Horario: 8:00 - 9:00</li>
-          <li class="list-group-item">Cupo: 10 personas</li>
-          <li class="list-group-item">Imparte: ING Aura</li>
-        </ul>
-        <div class="card-body">
-          <a href="#" class="card-link">Añadir al carrito</a>
-
-        </div>
-    </div>
-    <div class="card" style="width: 20rem;">
-        <img src="media/elecro3.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Electrónica 3</h5>
-          <p class="card-text">Curso muy básico de poesía hacia las placas FPGAs existentes en el mundo.</p>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">Horario: 15:00 - 16:00</li>
-          <li class="list-group-item">Cupo: 10 personas</li>
-          <li class="list-group-item">Imparte: ING Nicolas</li>
-        </ul>
-        <div class="card-body">
-          <a href="#" class="card-link">Añadir al carrito</a>
-
-        </div>
-      </div>
+    {% endfor %}
+  </div>
 
 
 

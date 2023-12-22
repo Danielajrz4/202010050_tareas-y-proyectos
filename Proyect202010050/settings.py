@@ -34,6 +34,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'crispy_forms',
+    'jazzmin',
+    'axes',
     'crispy_bootstrap5',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,11 +44,31 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'pagina.apps.PaginaConfig',
-    'user.apps.UserConfig',
+
+    
 ]
+
+JAZZMIN_SETTINGS = {
+    "welcome_sign": 'Bienvenidos al panel de administración',
+      "usermenu_links": [
+        {"name": "Support", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True},
+        {"model": "user.User"}
+    ],
+
+}
+JAZZMIN_UI_TWEAKS={
+    "theme": 'darkly',
+}
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+AUTHENTICATION_BACKENDS = [
+    
+    'django.contrib.auth.backends.ModelBackend',
+    'axes.backends.AxesBackend',
+    'axes.backends.AxesStandaloneBackend',
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -56,6 +78,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'axes.middleware.AxesMiddleware',
 ]
 
 ROOT_URLCONF = 'Proyect202010050.urls'
@@ -87,7 +110,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'HOST': 'localhost',
         'PORT': '5432',
-        'NAME': 'proyect202010050',
+        'NAME': 'ultima',
         'USER': 'postgres',
         'PASSWORD': 'password',
     }
@@ -137,6 +160,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AXES_FAILURE_LIMIT = 3
+AXES_COOLOFF_TIME = 1000
+
 
 # log y log out
 LOGIN_REDIRECT_URL = 'inicio'
@@ -145,4 +171,3 @@ LOGOUT_REDIRECT_URL = 'inicio'
 MEDIA_URL ='/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-AUTH_USER_MODEL = 'user.User'
