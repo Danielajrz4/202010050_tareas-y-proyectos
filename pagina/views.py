@@ -5,7 +5,8 @@ from django.contrib.auth import logout
 from pagina.templates.generales.forms import CustomUserCreationForm
 from django.contrib.auth import authenticate, login
 from .models import *
-
+from django.core.mail import EmailMessage
+from django.conf import settings
 
 # Create your views here.
 def inicio(request):
@@ -26,13 +27,11 @@ def cursos(request):
 
 @login_required
 def carrito(request):
-    customer=request.user.customer
-    if (customer ==2 ):
-        created= Order.objects.get_or_create(customer=customer, complete=False)
-        items= created.orderitem_set.all()
-        context={'items':items}
-        return render(request, 'generales/pagar.html', context)
-
+    customer=request.user.id
+    orden, created= Order.objects.get_or_create(Customer_id=customer, complete=False)
+    items= orden.orderitem_set.all()
+    context={'items':items}
+    return render(request, 'generales/pagar.html', context)
 
 def exit(request):
     logout(request)
@@ -44,15 +43,21 @@ def register(request):
     } 
     if request.method == 'POST':
         user_creation_form = CustomUserCreationForm(data=request.POST)
-
         if user_creation_form.is_valid():
+            mail= request.POST.get('email', '')
             user_creation_form.save()
+            email = EmailMessage(
+                'Aviso de registro en el sitio web Academia USAC',
+                'Usted se ha registrado en el sitio web academia usac por favor esté al tanto de nuestras promociones.',
+                settings.EMAIL_HOST_USER,
+                [mail],
+            )
+            email.fail_silently = False
+            email.send()
             user = authenticate(username=user_creation_form.cleaned_data['username'], password=user_creation_form.cleaned_data['password1'])
             login(request, user)
             return redirect('inicio')
-        
     return render(request, 'registration/register.html', data)
         
-
 def info(request):
     return render(request, 'generales/info.html')

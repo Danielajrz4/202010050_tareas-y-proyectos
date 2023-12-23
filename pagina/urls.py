@@ -11,5 +11,4 @@ urlpatterns = [
     path('register/', register, name='register'),
     path('info/', views.info, name='info'),
     path('carrito/', views.carrito, name='carrito'),
-    
 ]

@@ -171,3 +171,10 @@ LOGOUT_REDIRECT_URL = 'inicio'
 MEDIA_URL ='/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
+#email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'ldaniela2000j@gmail.com'
+EMAIL_HOST_PASSWORD = 'lqtm wlzr hpdg ufht'
+EMAIL_USE_TLS = True

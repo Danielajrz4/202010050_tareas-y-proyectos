@@ -1,33 +1,19 @@
 {% extends 'generales/base.html'%}
-
 {% block content %}
-
 {% load crispy_forms_tags %}
 
 <h3>¡Regístrate para acceder a los cursos!</h3>
-
 <br>
-
 <form action="" method="post">
     {% csrf_token %}
-
     <div class="card mx-auto" style="width: 35rem;">
-        <div class="card-body">
-          <h5 class="card-title">Llena todos los campos</h5>
+      <div class="card-body">
+        <h5 class="card-title">Llena todos los campos</h5>
           {{ form | crispy }}
-          <a href={% url 'inicio' %} class="btn btn-primary">Inicio</a>
-          <a href={% url 'login' %} class="btn btn-primary">Iniciar sesión</a>
-          <button class="btn btn-primary float-end"type="submit">Registrarme</button>
-        </div>
-      </div>
-
-
-
-
-
-
-
-
+        <a href={% url 'inicio' %} class="btn btn-primary">Inicio</a>
+        <a href={% url 'login' %} class="btn btn-primary">Iniciar sesión</a>
+      <button class="btn btn-primary float-end"type="submit">Registrarme</button>
+    </div>
+  </div>
 </form>
-
 {% endblock %}
