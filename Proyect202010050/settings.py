@@ -52,7 +52,7 @@ JAZZMIN_SETTINGS = {
     "welcome_sign": 'Bienvenidos al panel de administración',
       "usermenu_links": [
         {"name": "Support", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True},
-        {"model": "user.User"}
+        {"model": "pagina.Usuario"}
     ],
 
 }
@@ -178,3 +178,4 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'ldaniela2000j@gmail.com'
 EMAIL_HOST_PASSWORD = 'lqtm wlzr hpdg ufht'
 EMAIL_USE_TLS = True
+

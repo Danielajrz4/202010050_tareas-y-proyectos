@@ -4,20 +4,11 @@
 <div calss="row mx-5">
     <div class="col-lg-12">
         <div class="box-element">
+            <br>
             <a class="btn btn-outline-dark" href={% url 'cursos' %}>&#x2190; Continuar comprando</a>
             <br>
             <br>
-            <table class="table">
-                <tr>
-                    <th><h5>Cursos: <strong>3</strong></h5></th>
-                    <th><h5>Total: <strong>Q42</strong></h5></th>
-                    <th>
-                        <a style="float:right; margin: 5px;" class="btn btn-success" href="chek.html">Pagar</a>
-                    </th>
-                </tr>
 
-            </table>
-            
         </div>
         <br>
         <div class="box-element">
@@ -26,20 +17,31 @@
                     <th><h7>Curso</h7></th>
                     <th><h7>Precio</h7></th>
                     <th><h7>Total</h7></th>
-                    <th><a style="float:right; margin: 5px;" class="btn btn-success" href="chek.html">Quitar</a></th>
+                    <th></th>
                 </tr>
                 {% for item in items %}
                 <tr>
-                    <th><h7>{{item.product.curso}}</h7></th>
-                    <th><h7>{{item.product.precio}}</h7></th>
-                    <th><h7>{{item.product.precio}}</h7></th>
-                    <th><a style="float:right; margin: 5px;" class="btn btn-success" href="chek.html">Quitar</a></th>
-
+                    <th><h6>{{item.product.curso}}</h6></th>
+                    <th><h6>{{item.product.precio|floatformat:2}}</h6></th>
+                    <th><h6>{{item.product.precio|floatformat:2}}</h6></th>
+                    <th><a style="float:right; margin: 5px; background:rgb(255, 47, 47)" class="btn btn-success" href="chek.html">Eliminar</a></th>
                 </tr>
                 {% endfor %}
             </table>
         </div>
-
+        <table class="table">
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th><h5><strong>Total: Q{{order.ttotal|floatformat:2}}</strong></h5></th>
+                <th>
+                    <a style="float:right; margin: 5px;" class="btn btn-success" href={% url 'chek' %}>Pagar</a>
+                </th>
+            </tr>
+        </table>
 
 
     </div>

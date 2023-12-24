@@ -1,0 +1,34 @@
+{% extends 'generales/base.html'%}
+{% block content %}
+{% load crispy_forms_tags %}
+
+
+<div class="col-lg-6">
+    <div class="box-elemen">
+        <table class="table">
+        <a class="btn btn-outline-dark" href={% url 'carrito' %}>&#x2190; Regresar al carrito</a>
+            <hr>
+            <h2><strong>Resumen de su compra</strong></h2>
+            <hr>
+            {% for item in items %}
+                <tr>
+                    <th><h6>{{item.product.curso}}</h6></th>
+                    <th><h6>{{item.product.precio|floatformat:2}}</h6></th>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+<br>
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="card mx-auto" style="width: 35rem;">
+      <div class="card-body">
+        <h5 class="card-title">Llena todos los campos para pagar</h5>
+          {{ form.as_p }}
+      <button class="btn btn-primary float-end"type="submit">Pagar</button>
+    </div>
+  </div>
+</form>
+{% endblock %}

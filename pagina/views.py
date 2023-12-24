@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login
 from .models import *
 from django.core.mail import EmailMessage
 from django.conf import settings
+from pagina.templates.generales.forms import MetodoPagoForm
 
 # Create your views here.
 def inicio(request):
@@ -16,6 +17,9 @@ def inicio(request):
 def about(request):
     context={}
     return render(request, 'generales/about.html')
+
+def info(request):
+    return render(request, 'generales/info.html')
 
 #de acá para abajo se necesita estar log para verles
 @login_required
@@ -30,12 +34,23 @@ def carrito(request):
     customer=request.user.id
     orden, created= Order.objects.get_or_create(Customer_id=customer, complete=False)
     items= orden.orderitem_set.all()
-    context={'items':items}
+    context={'items':items, 'order':orden}
     return render(request, 'generales/pagar.html', context)
 
 def exit(request):
     logout(request)
     return redirect('inicio')
+
+def chek(request):
+    customer=request.user.id
+    orden, created= Order.objects.get_or_create(Customer_id=customer, complete=False)
+    items= orden.orderitem_set.all()
+    context={'items':items, 'order':orden,'form': MetodoPagoForm()}
+    if request.method == 'POST':
+        pago_form = MetodoPagoForm(data=request.POST)
+        if pago_form.is_valid():
+            return redirect('inicio')
+    return render(request, 'generales/chek.html', context)
 
 def register(request):
     data = {
@@ -44,8 +59,9 @@ def register(request):
     if request.method == 'POST':
         user_creation_form = CustomUserCreationForm(data=request.POST)
         if user_creation_form.is_valid():
-            mail= request.POST.get('email', '')
             user_creation_form.save()
+            ## LO DEL MAIL
+            mail= request.POST.get('email', '')
             email = EmailMessage(
                 'Aviso de registro en el sitio web Academia USAC',
                 'Usted se ha registrado en el sitio web academia usac por favor esté al tanto de nuestras promociones.',
@@ -54,10 +70,9 @@ def register(request):
             )
             email.fail_silently = False
             email.send()
+            ## FIN LO DEL MAIL
             user = authenticate(username=user_creation_form.cleaned_data['username'], password=user_creation_form.cleaned_data['password1'])
             login(request, user)
             return redirect('inicio')
     return render(request, 'registration/register.html', data)
         
-def info(request):
-    return render(request, 'generales/info.html')
