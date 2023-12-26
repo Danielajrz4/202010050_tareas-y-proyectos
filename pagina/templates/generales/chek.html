@@ -16,19 +16,63 @@
                     <th><h6>{{item.product.precio|floatformat:2}}</h6></th>
                 </tr>
             {% endfor %}
+            <th></th>
+            <th><h5><strong>Total: Q{{order.ttotal|floatformat:2}}</strong></h5></th>
         </table>
     </div>
 </div>
 
 <br>
-<form action="" method="post">
+<form id="miFormulario" action="" method="post">
     {% csrf_token %}
     <div class="card mx-auto" style="width: 35rem;">
       <div class="card-body">
         <h5 class="card-title">Llena todos los campos para pagar</h5>
           {{ form.as_p }}
-      <button class="btn btn-primary float-end"type="submit">Pagar</button>
+      <button class="btn btn-primary float-end"type="submit" id="make-payment" disabled>Pagar</button>
     </div>
   </div>
 </form>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  const formulario= document.getElementById('miFormulario');
+  const boton = document.getElementById('make-payment');
+
+  formulario.addEventListener('input',function(){
+    const camposRequeridos =formulario.querySelectorAll('[required]');
+    const todosCompletados=Array.from(camposRequeridos).every(field => field.value.trim() !== '');
+    if (todosCompletados){
+      boton.removeAttribute('disabled');
+    } else{
+      boton.setAttribute('disabled', 'disabled');
+    }
+  });
+});
+
+document.getElementById('make-payment').addEventListener('click', function(e){
+  submitFormData()
+})
+function submitFormData(){
+  console.log('clickado pago xd')
+
+
+var url = 'process_order'
+
+fetch(url,{
+  method: 'POST',
+  headers: {
+    'Content-Type':'application/json',
+    'X-CSRFToken': csrftoken
+  },
+  body:JSON.stringify()
+    })
+.then((response)=>{
+    return response.json()
+})
+.then((data)=>{
+  alert('Pago realizado exitósamente')
+}) 
+}
+</script>
 {% endblock %}

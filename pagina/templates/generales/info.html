@@ -17,5 +17,17 @@
         </ul>
     </div>
   </div>
+  <div class="col-md-4">
+    <div class="card" style="width: 22rem;">
+      <div class="card-body">
+        <h5 class="card-title">CURSOS ASIGNADOS</h5>
+      </div>
+        <ul class="list-group list-group-flush">
+          {% for curso in cursos %}
+          <li class="list-group-item">curso: {{ curso.product.curso }}</li>
+          {% endfor %}
+        </ul>
+    </div>
+  </div>
 </div>
 {% endblock %}

@@ -8,6 +8,9 @@ from .models import *
 from django.core.mail import EmailMessage
 from django.conf import settings
 from pagina.templates.generales.forms import MetodoPagoForm
+from django.http import JsonResponse
+import json
+import datetime
 
 # Create your views here.
 def inicio(request):
@@ -19,7 +22,10 @@ def about(request):
     return render(request, 'generales/about.html')
 
 def info(request):
-    return render(request, 'generales/info.html')
+    customer=request.user.id
+    cursos=asignacion.objects.filter(Customer_id=customer)
+    context={'cursos': cursos}
+    return render(request, 'generales/info.html', context)
 
 #de acá para abajo se necesita estar log para verles
 @login_required
@@ -42,6 +48,7 @@ def exit(request):
     return redirect('inicio')
 
 def chek(request):
+    user= customer=request.user.username
     customer=request.user.id
     orden, created= Order.objects.get_or_create(Customer_id=customer, complete=False)
     items= orden.orderitem_set.all()
@@ -49,6 +56,15 @@ def chek(request):
     if request.method == 'POST':
         pago_form = MetodoPagoForm(data=request.POST)
         if pago_form.is_valid():
+            mail= request.POST.get('email', '')
+            email = EmailMessage(
+                'ASIGNACION DE CURSOS ACADEMIA USAC',
+                'Hola {}, esta es su constancia de pago, esta es la lista de sus cursos asignados: {}.'.format(user, items),
+                settings.EMAIL_HOST_USER,
+                [mail],
+            )
+            email.fail_silently = False
+            email.send()
             return redirect('inicio')
     return render(request, 'generales/chek.html', context)
 
@@ -76,3 +92,35 @@ def register(request):
             return redirect('inicio')
     return render(request, 'registration/register.html', data)
         
+def updateItem(request):
+    data = json.loads(request.body)
+    productId = data['productId']
+    action=data['action']
+
+    customer=request.user.id
+    producto = Product.objects.get(id=productId)
+    order,created=Order.objects.get_or_create(Customer_id=customer, complete=False)
+    orderItem,createdd=OrderItem.objects.get_or_create(order=order, product_id=productId)
+    if action == 'add':
+        orderItem.save()
+    elif action == 'remove':
+        orderItem.delete()
+    return JsonResponse('Producto agregado', safe=False)
+
+def processOrder(request):
+    transacion_id = datetime.datetime.now().timestamp()
+    customer=request.user.id
+    order,created=Order.objects.get_or_create(Customer_id=customer, complete=False)  
+    order.transaction_id =transacion_id
+    order.complete= True
+    order.save()
+
+    customer=request.user.id
+    items= order.orderitem_set.all()
+    for item in items:
+        item2=asignacion(product_id=item.product_id, Customer_id=customer)
+        item2.save()
+
+    return JsonResponse('pago completo', safe=False)
+
+

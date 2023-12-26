@@ -1,5 +1,5 @@
-{% extends 'generales/base.html'%}
-{% load static %}
+{% extends 'generales/base.html' %}
+
 {% block content %}
 <div calss="row mx-5">
     <div class="col-lg-12">
@@ -24,7 +24,7 @@
                     <th><h6>{{item.product.curso}}</h6></th>
                     <th><h6>{{item.product.precio|floatformat:2}}</h6></th>
                     <th><h6>{{item.product.precio|floatformat:2}}</h6></th>
-                    <th><a style="float:right; margin: 5px; background:rgb(255, 47, 47)" class="btn btn-success" href="chek.html">Eliminar</a></th>
+                    <th><a data-product="{{item.product.id}}" data-action="remove" style="float:right; margin: 5px; background:rgb(255, 47, 47)" class="btn btn-success update-cart">Eliminar</a></th>
                 </tr>
                 {% endfor %}
             </table>

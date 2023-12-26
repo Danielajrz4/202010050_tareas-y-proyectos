@@ -22,13 +22,14 @@ class Order(models.Model):
     date_ordered = models.DateTimeField(auto_now_add=True)
     complete = models.BooleanField(default=True, null=True, blank=True)
     transaction_id=models.CharField(max_length=200, null=True)
+    def __str__(self):
+        return self.transaction_id
     @property
     def ttotal(self):
         orderitems=self.orderitem_set.all()
         ttotal = sum([item.total for item in orderitems])
         return ttotal
-    def __str__(self):
-        return self.transaction_id
+    
     
 class OrderItem(models.Model):
     product= models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True)
@@ -40,11 +41,14 @@ class OrderItem(models.Model):
         return totall
 
 class MetodoPago(models.Model):
-    nombre=models.CharField(max_length=100,null=True, blank=True )
-    email=models.EmailField(unique=True,null=True, blank=True)
-    titular_de_la_tarjeta=models.CharField(max_length=100,null=True, blank=True)
-    numero_de_tarjeta=models.BigIntegerField(null=True, blank=True)
-    fecha_de_vencimiento=models.SmallIntegerField(null=True, blank=True)
-    codigo_de_seguridad=models.SmallIntegerField(null=True, blank=True)
+    nombre=models.CharField(max_length=100,null=True, blank=False )
+    email=models.EmailField(unique=True,null=True, blank=False)
+    titular_de_la_tarjeta=models.CharField(max_length=100,null=True, blank=False)
+    nit=models.BigIntegerField(null=True, blank=False)
+    numero_de_tarjeta=models.BigIntegerField(null=True, blank=False)
+    fecha_de_vencimiento=models.SmallIntegerField(null=True, blank=False)
+    codigo_de_seguridad=models.SmallIntegerField(null=True, blank=False)
 
-
+class asignacion(models.Model):
+    product= models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True)
+    Customer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
