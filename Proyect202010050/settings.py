@@ -108,11 +108,11 @@ WSGI_APPLICATION = 'Proyect202010050.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'HOST': 'localhost',
+        'HOST': 'dbultima.cjae6om8gxml.us-east-2.rds.amazonaws.com',
         'PORT': '5432',
         'NAME': 'ultima',
         'USER': 'postgres',
-        'PASSWORD': 'password',
+        'PASSWORD': 'PutaMadre123$',
     }
 }
 
@@ -161,7 +161,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AXES_FAILURE_LIMIT = 3
-AXES_COOLOFF_TIME = 1000
+AXES_COOLOFF_TIME = 0
 
 
 # log y log out
